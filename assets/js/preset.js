@@ -360,14 +360,31 @@ function formatDDMMYYYY(date) {
 	return compiledRPyear;
 }
 
-function generateRandomEncryption() {
-	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	var len = 12;
-	var out = '';
-	for (var i = 0; i < len; i++) {
-		out += chars.charAt(Math.floor(Math.random() * chars.length));
+function generateSystemName() {
+	var prefixes = ['Omicron', 'Omega', 'Theta', 'Gamma', 'Kappa', 'Delta', 'Minor', 'Zeta'];
+	var codes = ['5', '11', '52', '49'];
+
+	// Seed randomness from local browser time
+	var now = new Date();
+	var timeSeed = now.getTime(); // ms since epoch, local time zone
+
+	// Simple seeded pseudo-random helper (xorshift-style)
+	var seed = timeSeed % 2147483647;
+	if (seed <= 0) seed += 2147483646;
+	function seededRandom() {
+		seed = (seed * 16807) % 2147483647;
+		return (seed - 1) / 2147483646;
 	}
-	return 'ENC-' + out;
+
+	// Pick system name parts
+	var prefix = prefixes[Math.floor(seededRandom() * prefixes.length)];
+	var code = codes[Math.floor(seededRandom() * codes.length)];
+
+	// Random number derived from local time (seconds + minutes + ms)
+	var timeNum = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) * 1000 + now.getMilliseconds();
+	var randomNum = Math.floor(seededRandom() * 900000) + timeNum;
+
+	return prefix + '-' + code + '-' + randomNum;
 }
 
 function renderRawTemplate() {
