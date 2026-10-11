@@ -66,6 +66,23 @@ function getval(sel)
 	if (sel.value == 3) 
 	// Template Three
 	{
+		document.form1.commid.value = "Alejandra Sara Lopez";
+		document.form1.position.value = "Fleet Commander";
+		document.form1.charposition.value = "Fleet Commander";
+		// document.form1.recipient.value = "";
+		// document.form1.ccrecipient.value = "";
+		// document.form1.bccrecipient.value = "";
+		// document.form1.subject.value = "";
+		document.form1.message.value = "";
+		document.form1.titleattach.value = "";
+		document.form1.attachment.value = "";
+		document.form1.headerimg.value = "";
+		document.form1.footerimg.value = "";
+	}
+
+	if (sel.value == 99) 
+	// Template Three
+	{
 		document.form1.commid.value = "";
 		document.form1.position.value = "";
 		document.form1.charposition.value = "";
